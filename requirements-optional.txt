@@ -1,0 +1,2 @@
+# Optional dependency for offline 802.11 PCAP parsing
+scapy>=2.5,<3
