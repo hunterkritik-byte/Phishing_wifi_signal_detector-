@@ -10,7 +10,9 @@ def recommended_actions(*, risk: str, possible_interference: bool) -> list[str]:
     ]
     if risk in {"suspicious", "high-concern"}:
         actions.insert(0, "Disconnect this device from the suspicious network if you can do so safely.")
+        actions.insert(1, "Disable automatic reconnection for the suspicious profile on this device.")
     if possible_interference:
         actions.append("Switch to cellular data or another known-good connection and report suspected interference to the venue/network operator.")
+    actions.append("Preserve a timestamped local report for incident review.")
     actions.append("Do not attempt to deauthenticate, jam, impersonate, or disable another access point.")
     return actions
