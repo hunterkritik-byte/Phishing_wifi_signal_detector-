@@ -4,6 +4,27 @@ A **public-safety, passive Wi-Fi awareness tool** for identifying suspicious wir
 
 > ⚠️ Defensive by design: no credential capture, password cracking, frame injection, deauthentication, access-point impersonation, or automatic connection.
 
+## 🆕 New in the current release
+
+- **Explainable multi-signal concern scoring** across security, vendor, fingerprint, channel, and RSSI indicators.
+- Separate **score + level + indicator list** output so downstream tools can display why an observation deserves review.
+- Existing single-observation scoring remains compatible.
+
+Example:
+
+```python
+from wifi_safety.scoring import concern_score
+
+result = concern_score(
+    security_mismatch=True,
+    fingerprint_mismatch=True,
+    rssi_anomaly=True,
+)
+print(result)
+```
+
+The score is a local heuristic and **never proves an evil twin or malicious network**.
+
 ## MVP
 
 ### Passive Wi-Fi scanning
@@ -110,6 +131,7 @@ wifi_safety/
 - [x] SSID/BSSID correlation
 - [x] Security/channel/vendor/fingerprint comparison
 - [x] RSSI anomaly helper
+- [x] Explainable multi-signal concern scoring
 - [x] Regression tests
 - [ ] Local OUI database
 - [ ] SQLite observation history
