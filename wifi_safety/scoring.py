@@ -25,3 +25,30 @@ def level(score: int) -> str:
     if score >= 15:
         return "review"
     return "low"
+
+
+def concern_score(*, security_mismatch: bool = False, vendor_mismatch: bool = False,
+                  fingerprint_mismatch: bool = False, channel_mismatch: bool = False,
+                  rssi_anomaly: bool = False) -> dict[str, object]:
+    """Score passive indicators with explainable weights; never declares certainty."""
+    weights = {
+        "security_mismatch": 30,
+        "vendor_mismatch": 15,
+        "fingerprint_mismatch": 25,
+        "channel_mismatch": 10,
+        "rssi_anomaly": 20,
+    }
+    flags = {
+        "security_mismatch": security_mismatch,
+        "vendor_mismatch": vendor_mismatch,
+        "fingerprint_mismatch": fingerprint_mismatch,
+        "channel_mismatch": channel_mismatch,
+        "rssi_anomaly": rssi_anomaly,
+    }
+    total = min(sum(weights[name] for name, enabled in flags.items() if enabled), 100)
+    return {
+        "score": total,
+        "level": level(total),
+        "indicators": [name for name, enabled in flags.items() if enabled],
+        "disclaimer": "Heuristic review aid only; score is not proof of spoofing or maliciousness.",
+    }
