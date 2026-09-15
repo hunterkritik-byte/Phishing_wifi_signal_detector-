@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "phishing-wifi-signal-detector"
-version = "0.2.0"
+version = "0.2.1"
 description = "Passive Wi-Fi safety and rogue access point detection tools"
 requires-python = ">=3.9"
 dependencies = []
